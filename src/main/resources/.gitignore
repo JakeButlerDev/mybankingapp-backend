@@ -1,1 +1,17 @@
 application.properties
+
+project thoughts:
+
+ENDPOINTS TO HIT
+Checking detail - previous transactions and detail
+Savings detail - previous transactions and detail
+
+PAGES (including above)
+Home - welcome, photos, etc
+Login - username/password
+Logout - return to home
+Accounts overview - show account numbers and types
+Contact Us
+
+OTHER
+Use UUID to auto generate unique account IDs when created

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class CheckingModel {
 
     @Id
-    private int accountNumber;
+    private String accountNumber;
 
     private double balance;
     private double transactionFee;
@@ -46,7 +46,7 @@ public class CheckingModel {
         }
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
