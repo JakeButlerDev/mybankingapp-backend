@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "checking")
-public class CheckingModel {
+@Table(name = "account")
+public class AccountModel {
 
     @Id
     private String accountNumber;
