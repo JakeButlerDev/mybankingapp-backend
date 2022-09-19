@@ -11,10 +11,45 @@ public class AccountModel {
     @Id
     private String accountNumber;
 
-    private double balance;
-    private double transactionFee;
-    private String accountHolder;
-    private Contact contactInfo;
+    public class CheckingAcct {
+        private double balance;
+        private double transactionFee;
+        private String accountHolder;
+        private Contact contactInfo;
+
+        public double getBalance() {
+            return balance;
+        }
+        public double getTransactionFee() {
+            return transactionFee;
+        }
+        public String getAccountHolder() {
+            return accountHolder;
+        }
+        public Contact getContactInfo() {
+            return contactInfo;
+        }
+
+    }
+
+    public class SavingsAcct {
+        private double balance;
+        private String accountHolder;
+        private Contact contactInfo;
+
+        public double getBalance() {
+            return balance;
+        }
+        public String getAccountHolder() {
+            return accountHolder;
+        }
+        public Contact getContactInfo() {
+            return contactInfo;
+        }
+
+    }
+
+//    private Contact contactInfo;  Wonder if I have to move the constructor class inside each class to function properly
 
     public static class Contact {
         private String phone;
@@ -50,27 +85,4 @@ public class AccountModel {
         return accountNumber;
     }
 
-    public double getBalance() {
-        return balance;
-    }
-
-    public double getTransactionFee() {
-        return transactionFee;
-    }
-
-    public String getAccountHolder() {
-        return accountHolder;
-    }
-
-    public Contact getContactInfo() {
-        return contactInfo;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public void setContactInfo(Contact contactInfo) {
-        this.contactInfo = contactInfo;
-    }
 }
