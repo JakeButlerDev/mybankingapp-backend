@@ -1,4 +1,6 @@
 package com.careerdevs.mybankingapp.repositories;
 
-public interface UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<UserRepository, Integer> {
 }

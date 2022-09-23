@@ -29,6 +29,7 @@ public class AccountController {
     private UserRepository userRepository;
 
 
+
     // Want to GET all transactions from all Checking and all Savings to display to user when they look deeper into account
     @GetMapping("/checking/all")
     public ResponseEntity<?> getAllTransChecking() {
@@ -57,7 +58,9 @@ public class AccountController {
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<?> depositChecking() {
+    public ResponseEntity<?> depositChecking(@PathVariable double amount, @PathVariable String userId) {
+        //TODO: Troubleshoot below, prompted for iterable within findById()
+//        ArrayList<AccountModel> foundAccount = (ArrayList<AccountModel>) accountRepository.findAllById(userId);
         return null;
     }
 

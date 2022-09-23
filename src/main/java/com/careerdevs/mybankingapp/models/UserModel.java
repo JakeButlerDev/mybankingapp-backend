@@ -7,10 +7,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+//@CrossOrigin()        Remember to set a localhost so front end can interact with backend
 public class UserModel {
 
     @Id
-    private int userId;     // Allow users to create their own id when account is created
+    private String userId;     // Allow users to create their own id when account is created
 
     private Contact contactInfo;
 
@@ -48,6 +49,10 @@ public class UserModel {
         public void setBeneficiary(String beneficiary) {
             this.beneficiary = beneficiary;
         }
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public Contact getContactInfo() {

@@ -1,15 +1,20 @@
 package com.careerdevs.mybankingapp.models;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @Entity
 @Table(name = "accounts")
+//@CrossOrigin()        Remember to set a localhost so front end can interact with backend
 public class AccountModel {
 
     @Id
-    private String accountNumber;       // Use UUID as generation method, when account is first created
+    private final String accountNumber = UUID.randomUUID().toString();
+    // Use UUID as generation method, when account is first created
 
 
     public class CheckingAcct {
@@ -29,6 +34,14 @@ public class AccountModel {
         }
 
 
+        public void setBalanceDeposit(double amount) {
+            this.balance += amount;
+        }
+        public void setBalanceWithdrawal(double amount) {
+            this.balance -= amount;
+        }
+
+        // Would want a transfer method as well to move money between accounts
     }
 
     public class SavingsAcct {
@@ -42,16 +55,18 @@ public class AccountModel {
             return accountHolder;
         }
 
+        public void setBalanceDeposit(double amount) {
+            this.balance += amount;
+        }
+
+        public void setBalanceWithdrawal(double amount) {
+            this.balance -= amount;
+        }
+        // Would want a transfer method as well to move money between accounts
     }
-
-//    private Contact contactInfo;  Wonder if I have to move the constructor class inside each class to function properly
-
-
 
     public String getAccountNumber() {
         return accountNumber;
     }
-
-
 
 }

@@ -4,10 +4,7 @@ import com.careerdevs.mybankingapp.repositories.AccountRepository;
 import com.careerdevs.mybankingapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
 * I want this controller to handle everything done with users. Create, patch, delete, etc
@@ -26,6 +23,18 @@ public class UserController {
     // Allow admin to get all users within banking system
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers() {
+        try {
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    // GET one user by id, bring up all accounts owned by user
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable String userId) {
         try {
             return null;
         } catch (Exception e) {
