@@ -3,6 +3,8 @@ package com.careerdevs.mybankingapp.models;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -14,6 +16,7 @@ public class UserModel {
     private String userId;     // Allow users to create their own id when account is created
 
     private Contact contactInfo;
+    public ArrayList<Optional> accounts;
 
     // Cliff's inclusion with school system. Idea bringing it over is one user may have multiple accounts
 //    @OneToMany(mappedBy = "user", fetch= FetchType.LAZY)
@@ -58,4 +61,17 @@ public class UserModel {
     public Contact getContactInfo() {
         return contactInfo;
     }
+
+    public void addAccount(Optional<SavingsModel> savings) {
+        this.accounts.add(savings);
+    }
+
+    public void addCheckingAccount(Optional<CheckingModel> checking) {
+        this.accounts.add(checking);
+    }
+
+    public ArrayList<Optional> getAccounts() {
+        return accounts;
+    }
+
 }

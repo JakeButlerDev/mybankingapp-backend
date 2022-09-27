@@ -1,10 +1,15 @@
 package com.careerdevs.mybankingapp.controllers;
 
+import com.careerdevs.mybankingapp.models.UserModel;
 import com.careerdevs.mybankingapp.repositories.AccountRepository;
 import com.careerdevs.mybankingapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /*
 * I want this controller to handle everything done with users. Create, patch, delete, etc
@@ -24,7 +29,9 @@ public class UserController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers() {
         try {
-            return null;
+            ArrayList<UserModel> allUsers = (ArrayList<UserModel>) userRepository.findAll();
+
+            return ResponseEntity.ok(allUsers);
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
@@ -36,7 +43,8 @@ public class UserController {
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable String userId) {
         try {
-            return null;
+            Optional<UserModel> foundUser = userRepository.findByUserId(userId);
+            return ResponseEntity.ok(foundUser);
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
@@ -48,7 +56,9 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<?> createNewUser() {
         try {
-            return null;
+            UserModel newUser = new UserModel();
+
+            return ResponseEntity.ok(newUser);
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());

@@ -1,8 +1,11 @@
 package com.careerdevs.mybankingapp.repositories;
 
 
-import com.careerdevs.mybankingapp.models.AccountModel;
+import com.careerdevs.mybankingapp.models.CheckingModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends JpaRepository<AccountModel, Integer> {
+import java.util.UUID;
+
+public interface AccountRepository extends JpaRepository<CheckingModel, Integer> {
+    CheckingModel findOneByUuid(UUID uuid);
 }

@@ -1,13 +1,17 @@
 package com.careerdevs.mybankingapp.controllers;
 
-import com.careerdevs.mybankingapp.models.AccountModel;
+import com.careerdevs.mybankingapp.models.CheckingModel;
+import com.careerdevs.mybankingapp.models.UserModel;
 import com.careerdevs.mybankingapp.repositories.AccountRepository;
 import com.careerdevs.mybankingapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
 
 import static java.lang.Integer.parseInt;
 
@@ -32,11 +36,13 @@ public class AccountController {
 
     // Want to GET all transactions from all Checking and all Savings to display to user when they look deeper into account
     @GetMapping("/checking/all")
-    public ResponseEntity<?> getAllTransChecking() {
+    public ResponseEntity<?> getAllTransChecking(@PathVariable UUID id) {
         try {
-            //TODO: Below is to find all accounts, I want all transactions within that account
-            ArrayList<AccountModel> allAccounts =  (ArrayList <AccountModel>) accountRepository.findAll();
-            return ResponseEntity.ok(allAccounts);
+            AccountRepository record = this.accountRepository.findOneByUuid(id);
+            return ResponseEntity.ok(record.toString());
+//            //TODO: Below is to find all accounts, I want all transactions within that account
+//            ArrayList<AccountModel> allAccounts =  (ArrayList <AccountModel>) accountRepository.findAll();
+//            return ResponseEntity.ok(allAccounts);
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
@@ -48,7 +54,7 @@ public class AccountController {
     public ResponseEntity<?> getAllTransSaving() {
         try {
             //TODO: Below is to find all accounts, I want all transactions within that account
-            ArrayList<AccountModel> allAccounts =  (ArrayList <AccountModel>) accountRepository.findAll();
+            ArrayList<CheckingModel> allAccounts =  (ArrayList <CheckingModel>) accountRepository.findAll();
             return ResponseEntity.ok(allAccounts);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -58,25 +64,33 @@ public class AccountController {
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<?> depositChecking(@PathVariable double amount, @PathVariable String userId) {
+    public ResponseEntity<?> depositChecking(@PathVariable double amount, @PathVariable String acctId) {
         //TODO: Troubleshoot below, prompted for iterable within findById()
 //        ArrayList<AccountModel> foundAccount = (ArrayList<AccountModel>) accountRepository.findAllById(userId);
         return null;
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<?> withdrawChecking() {
-        return null;
+    public ResponseEntity<?> withdrawChecking(@PathVariable double amount, @PathVariable UUID acctId) {
+        try {
+            CheckingModel record = this.accountRepository.findOneByUuid(acctId);
+            CheckingModel.setBalanceWithdrawal(amount);
+            return ResponseEntity.ok(record);
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getAllUserAccounts(@PathVariable String id) {
+    public ResponseEntity<?> getAllUserAccounts(@PathVariable String userId) {
         try {
-            //TODO: Troubleshoot below, prompted for iterable within findAllById()
-//            int userId = parseInt(id);
-//            ArrayList<AccountModel> allAccounts = (ArrayList<AccountModel>) accountRepository.findAllById(userId);
-//            return ResponseEntity.ok(allAccounts);
-            return null;
+            Optional<UserModel> foundUser = userRepository.findByUserId(userId);
+            ArrayList<Optional> foundAccounts = foundUser.getAccounts();
+
+            return ResponseEntity.ok(foundAccounts.get());
+
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
